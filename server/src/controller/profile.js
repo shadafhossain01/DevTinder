@@ -1,3 +1,5 @@
+const User = require("../model/user.model");
+
 // handle showProfile
 const handleShowProfile = async (req, res) => {
   const user = req.user;
@@ -28,8 +30,8 @@ const handleProfileUpdate = async (req, res) => {
       throw new Error("Update not allowed");
     }
 
-    if (data.skills) {
-      if (data?.skills.length > 10) {
+    if (data.skills && Array.isArray(data.skills)) {
+      if (data.skills.length > 10) {
         throw new Error("Skills cannot be more than 10");
       }
     }
@@ -40,17 +42,17 @@ const handleProfileUpdate = async (req, res) => {
     });
 
     res.status(200).json({
-      suceess: true,
+      success: true,
+      data:updatedUser,
       message: `${updatedUser.fullname} Profile Updated Successfully.`,
     });
   } catch (error) {
     res.status(400).json({
-      suceess: false,
+      success: false,
       message: error.message,
     });
   }
 };
-
 
 module.exports = {
   handleShowProfile,

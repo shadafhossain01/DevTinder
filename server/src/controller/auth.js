@@ -26,7 +26,7 @@ const handleSignup = async (req, res) => {
 
     res.status(201).json({
       suceess: true,
-      message: "User Created Successfully.",
+      message: `${user.fullname} Created Successfully.`,
       data: user,
     });
   } catch (error) {
